@@ -1,0 +1,10 @@
+# Server:
+# port: 因为启动多个product-data-service2 所以端口号由用户自己设定，推荐 8001,8002，8003
+
+spring:
+  application:
+    name: product-data-service2
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

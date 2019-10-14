@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- * describe:
+ * describe: 服务注册中心
  *
  * @author 王立朝
  * @date 2019/10/12
