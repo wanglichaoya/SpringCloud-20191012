@@ -11,7 +11,6 @@
     <module>springCloudChild1</module>
 
     <module>eurekaServer</module>
-    <module>product-data-service</module>
     <module>product-data-service2</module>
 
 
