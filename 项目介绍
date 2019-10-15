@@ -1,0 +1,36 @@
+这个是一个微服务的一个小案例
+其中：
+  springCloudParent: 是一个父项目 ，有以下子项目
+     eurekaServer
+     product-data-service2
+     product-view-service-ribbon
+     springCloudChild1
+
+    同时这个项目又是一个 微服务的项目
+       eurekaServer: 是 SpringCloud 注册中心 eureka, 主要用来管理其他 提供服务的 微服务项目
+
+         数据微服务：product-data-service2, 用来提供 数据 ，并返回数据
+
+         视图微服务：product-view-service-ribbon, 用来 展示数据，访问在SpringCloud 注册好的
+                    微服务。
+
+      注意： SpringCloud 提供了2种方式 访问 注册中心注册好的微服务，
+              1、Ribbon,  通过是： RestTemplate 进行调用，然后进行客户端的负载均衡，由客户端决定
+                   访问哪一个 在 SpringCloud注册好的 微服务。
+
+              2、Feign ,  对 Ribbon 进行了封装，用起来更方便。
+
+         什么是客户端的负载均衡？
+
+           启动2个 数据微服务，一个是8001， 一个是8002，Ribbon 会从注册中心 了解到有这么几个
+           微服务，然后由Ribbon这个客户端自己决定调用哪个 微服务，这就叫做客户端的负载均衡。
+
+      项目如何运行启动？
+        第1步：
+           先启动 SpringCloud 注册中心 微服务， eurekaServer;
+        第2步：
+           启动 1个或这个多个 数据微服务，用来提供数据，product-data-service2;
+        第3步：
+           启动 视图微服务，用来 访问 在SpringCloud 注册中心注册好的 微服务，然后进行调用，
+           product-view-service-ribbon ;
+
