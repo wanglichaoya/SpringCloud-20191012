@@ -28,9 +28,13 @@
       项目如何运行启动？
         第1步：
            先启动 SpringCloud 注册中心 微服务， eurekaServer;
+           访问地址： localhost:8761
         第2步：
            启动 1个或这个多个 数据微服务，用来提供数据，product-data-service2;
+           访问地址：http://localhost:8001/products
         第3步：
            启动 视图微服务，用来 访问 在SpringCloud 注册中心注册好的 微服务，然后进行调用，
            product-view-service-ribbon ;
+           访问地址：http://localhost:8010/products
+
 
