@@ -1,9 +1,6 @@
 package com.wlc;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.NetUtil;
-import cn.hutool.core.util.NumberUtil;
+import brave.sampler.Sampler;
 import com.wlc.util.CheckPortAbledUtil;
 import com.wlc.util.FutureTimeOutSecondsUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,12 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-
-import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @EnableFeignClients :表示使用 feign
@@ -62,7 +54,16 @@ public class ProductViewServiceFeignApplication {
         //测试端口号是否被占用了
         CheckPortAbledUtil.checkPortAbled(port);
         new SpringApplicationBuilder(ProductViewServiceFeignApplication.class).properties("server.port=" + port).run(args);
-
-
     }
+
+    /**配置链路追踪器开始**/
+
+    /**
+     * 配置Sampler 抽样策略， ALWAYS_SAMPLE: 表示持续抽样
+     **/
+    @Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
+    }
+    /**配置链路追踪器结束**/
 }
