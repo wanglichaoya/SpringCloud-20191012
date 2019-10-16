@@ -38,3 +38,19 @@
            访问地址：http://localhost:8010/products
 
 
+
+       SPringCloud 服务链路追踪：
+       如何使用？
+         步骤如下：
+            1、 需要先下载：zipkin-server-2.10.1-exec.jar
+                  下载地址：
+                    http://how2j.cn/frontdownload?bean.id=2073
+            2、 下载完成以后需要启动链路追踪服务器，
+                  启动方式：找到 这个jar包所在的路径
+                    java -jar zipkin-server-2.10.1-exec.jar
+            3、挨个启动 eureka-server, 改造后的 product-data-service 和 product-view-service-feign 。
+            4、启动地址：
+                 服务链接追踪器启动地址：
+                     http://localhost:9411/zipkin/dependency/
+                 视图微服务启动地址
+                     localhost:输入的端口号/products
