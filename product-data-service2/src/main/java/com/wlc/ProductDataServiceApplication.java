@@ -1,10 +1,12 @@
 package com.wlc;
 
+import brave.sampler.Sampler;
 import com.wlc.util.CheckPortAbledUtil;
 import com.wlc.util.FutureTimeOutSecondsUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Bean;
 
 /**
  * describe:启动类， 考虑到要做集群。 所以让用户自己输入端口，推荐 8001，8002，8003.
@@ -57,5 +59,17 @@ public class ProductDataServiceApplication {
         //测试端口号是否被占用
         CheckPortAbledUtil.checkPortAbled(port);
         new SpringApplicationBuilder(ProductDataServiceApplication.class).properties("server.port=" + port).run(args);
+
+
     }
+    /**配置链路追踪器开始**/
+
+    /**
+     * 配置Sampler 抽样策略， ALWAYS_SAMPLE: 表示持续抽样
+     * **/
+    @Bean
+    public Sampler defaultSampler(){
+        return Sampler.ALWAYS_SAMPLE;
+    }
+    /**配置链路追踪器结束**/
 }
