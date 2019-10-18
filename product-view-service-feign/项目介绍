@@ -1,0 +1,6 @@
+新增配置客户端，需要在bootstrap.yml 里配置 config-server 的信息，而不是像以前那样在 application.yml 里进行配置。
+                bootstrap.yml 和 application.yml 的区别，简单说就是前者先启动，
+                    并且一些系统方面的配置需要在 bootstrap.yml 里进行配置。
+
+  另外：把application.yml中 eureka 注册中心的配置信息放入到 bootstrap.yml 中，
+  因为：bootstrap要先启动，不然就需要配置2遍
