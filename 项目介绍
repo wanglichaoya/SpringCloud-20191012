@@ -7,7 +7,7 @@
      springCloudChild1
 
     同时这个项目又是一个 微服务的项目
-       eurekaServer: 是 SpringCloud 注册中心 eureka, 主要用来管理其他 提供服务的 微服务项目
+         eurekaServer: 是 SpringCloud 注册中心 eureka, 主要用来管理其他 提供服务的 微服务项目
 
          数据微服务：product-data-service2, 用来提供 数据 ，并返回数据
 
@@ -20,7 +20,7 @@
 
               2、Feign ,  对 Ribbon 进行了封装，用起来更方便。
 
-         什么是客户端的负载均衡？
+      什么是客户端的负载均衡？
 
            启动2个 数据微服务，一个是8001， 一个是8002，Ribbon 会从注册中心 了解到有这么几个
            微服务，然后由Ribbon这个客户端自己决定调用哪个 微服务，这就叫做客户端的负载均衡。
@@ -54,3 +54,35 @@
                      http://localhost:9411/zipkin/dependency/
                  视图微服务启动地址
                      localhost:输入的端口号/products
+
+        SpringCloud 配置服务器：
+          如何使用：
+            第一步： 新建一个 配置服务器 微服务
+                     这个应用中对应的是：config-server 微服务
+
+
+      SpringCloud 配置客户端
+        如何启动：
+          依次启动： eurekaServer（Eureka注册中心微服务）、
+                    config-server(配置服务器)、
+                    product-data-service2(数据微服务)、
+                    product-view-service-feign(视图微服务)
+
+                    然后访问： http://localhost:8012/products
+
+
+       SpringCloud 断路器 Hystrix 的配置
+          SpringCloud 断路器 Hystrix 是干嘛的？
+             本来，视图微服务是要访问数据微服务的，但是当数据微服务一旦被停止的时候，比如说，数据微服务所在的机房停电了，
+              这个时候，视图微服务 访问 数据微服务 就会报错，但是这个错误，页面上客户看不懂，所以要解决这个问题。
+              于是就有了，当数据微服务 不可访问的时候， 要提供 一种解决方案。
+                  比如说提示 数据微服务不可用，这样客户就知道错误的原因了。
+
+          启动方式：
+          EurekaServerApplication, ConfigServerApplication, ProductViewServiceFeignApplication。
+          先不启动 数据微服务  product-data-service2, 然后直接访问：
+            http://localhost:8012/products
+          就会提示 数据微服务 不可用。
+
+
+
