@@ -10,3 +10,15 @@ spring:
     encoding: UTF-8
     content-type: text/html
     mode: HTML5
+
+#开启断路器
+feign.hystrix.enabled: true
+#新增路径访问允许： 这样才能访问 /actuator/bus-refresh
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

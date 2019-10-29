@@ -40,6 +40,28 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
+
+        <!--增加一个 spring-boot-starter-actuator  ,用于访问 /actuator/bus-refresh-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+
+        <!--增加一个  spring-cloud-starter-bus-amqp, 用于支持rabbitmq-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+
+        <!--增加一个spring-cloud-starter-netflix-hystrix 以支持短路器，短路器：就是当
+         数据微服务  不可用的时候，例如 数据微服务机房停电的时候，怎么办， 所以 断路器就是让
+         视图微服务感应到 ，然后做出反应。不然的话，页面上出现的错误，客户看不懂。
+        -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
     </dependencies>
 
 

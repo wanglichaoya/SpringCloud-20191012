@@ -1,10 +1,12 @@
 package com.wlc;
 
 import brave.sampler.Sampler;
+import cn.hutool.core.util.NetUtil;
 import com.wlc.util.CheckPortAbledUtil;
 import com.wlc.util.FutureTimeOutSecondsUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -14,11 +16,14 @@ import org.springframework.context.annotation.Bean;
  * @EnableFeignClients :表示使用 feign
  * @EnableDiscoveryClient： 表示用于发现注册中心微服务
  * @EnableEurekaClient:
+ *
+ * @EnableCircuitBreaker: 信息共享给监控中心。
  */
 @SpringBootApplication
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableFeignClients
+@EnableCircuitBreaker
 public class ProductViewServiceFeignApplication {
     public static void main(String[] args) {
 
@@ -51,6 +56,12 @@ public class ProductViewServiceFeignApplication {
         }*/
         //让 5秒内 输入端口号，如果超过5秒的时候，就用默认的端口号
         int port = FutureTimeOutSecondsUtil.futureTimeOutSecond(5, defaultPort);
+        //测试RabbitMq 是否被占用
+       /* int rabbitMQPort = 5672;
+        if(NetUtil.isUsableLocalPort(port)){
+            System.err.printf("未在端口%d 发现 rabbitMQ服务，请检查rabbitMQ 是否启动", rabbitMQPort );
+            System.exit(1);
+        }*/
         //测试端口号是否被占用了
         CheckPortAbledUtil.checkPortAbled(port);
         new SpringApplicationBuilder(ProductViewServiceFeignApplication.class).properties("server.port=" + port).run(args);

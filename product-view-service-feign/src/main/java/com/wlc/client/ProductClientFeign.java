@@ -12,7 +12,13 @@ import java.util.List;
  *
  * 注意看，这里只是指定了要访问的 微服务名称，但是并没有指定端口号到底是 8001, 还是 8002.
  * **/
+
+/*注解由原来的
 @FeignClient(value = "PRODUCT-DATA-SERVICE2")
+修改为
+@FeignClient(value = "PRODUCT-DATA-SERVICE2",fallback = ProductClientFeignHystrix.class)*/
+/*@FeignClient(value = "PRODUCT-DATA-SERVICE2")*/
+@FeignClient(value = "PRODUCT-DATA-SERVICE2",fallback = ProductClientFeignHystrix.class)
 public interface ProductClientFeign {
 
 
