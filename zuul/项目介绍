@@ -1,0 +1,22 @@
+这个项目是： SpringCloud 网关 zuul
+  什么是网关呢？
+    简单点说： 就是之前我们访问 视图微服务 product-view-service-feign  和 数据微服务 product-data-service2,
+       访问方式是： http://localhost:8001/products  这样，数据微服务可能会部署在 不同的机器，不同的端口上面，
+       这个时候，我们访问的时候，就需要记住各个 微服务的 ip 和 端口，  增加了访问的难度。
+
+       所以，就有了这个 网关 zuul 微服务，只需要配置 好 视图微服务和 数据微服务 ，访问的时候，只需要记住
+       网关的 ip 和端口号即可
+
+       在 application.xml 进行如下配置  ：
+          api-a:
+             path: /api-data/**
+             serviceId: PRODUCT-DATA-SERVICE2
+           api-b:
+             path: /api-view/**
+             serviceId: PRODUCT-VIEW-SERVICE-FEIGN
+
+        访问：
+          数据微服务的访问方式：
+           localhost:8040/api-data/products
+          数据微服务的访问方式是：
+           localhost:8040/api-view/products
