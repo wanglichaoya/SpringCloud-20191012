@@ -55,6 +55,17 @@
                  视图微服务启动地址
                      localhost:输入的端口号/products
 
+            注意：
+                因为视图服务进行了改造，支持了 rabbitMQ, 那么在默认情况下，它的信息就不会进入 Zipkin了。 在Zipkin 里看不到视图服务的资料了。
+                为了解决这个问题，在启动 Zipkin 的时候 带一个参数就好了：--zipkin.collector.rabbitmq.addresses=localhost
+
+                即原来的访问方式是
+                java -jar zipkin-server-2.10.1-exec.jar
+
+                现在的访问方式改成 下面的这种即可：
+                java -jar zipkin-server-2.10.1-exec.jar --zipkin.collector.rabbitmq.addresses=localhost
+
+
         SpringCloud 配置服务器：
           如何使用：
             第一步： 新建一个 配置服务器 微服务
@@ -84,5 +95,14 @@
             http://localhost:8012/products
           就会提示 数据微服务 不可用。
 
+
+       SpringCloud 网关 zuul
+
+          启动方式：
+            依次启动：
+               EurekaServiceApplication->ConfigServerApplication->ProductViewServiceFeignApplication->
+               ProductDataServiceApplication->ProductServiceZuulApplication
+
+             SpringCloud Eureka 注册中心-》配置微服务-》视图微服务-》数据微服务-》网关微服务  这样的顺序启动。
 
 
