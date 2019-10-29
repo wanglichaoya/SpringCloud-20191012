@@ -1,0 +1,14 @@
+#配置 微服务 的名称
+spring:
+  application:
+    name: turbine
+turbine:
+  aggregator:
+    clusterConfig: default
+    ### 配置Eureka中的serviceId列表，表明监控哪些服务
+  appConfig: product-view-service-feign
+  cluster-name-expression: new String("default")
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
